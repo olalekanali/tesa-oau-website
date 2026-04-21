@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - TESA OAU</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Dashboard</h1>
+    <a href="/logout">Logout</a>
+  </header>
+  <main>
+    <h2>Welcome, <%= user.username %>!</h2>
+    <% if (user.role === 'admin') { %>
+      <section>
+        <h3>Manage Executives</h3>
+        <a href="/executives/create">Create Executive</a>
+        <a href="/executives">View All Executives</a>
+      </section>
+      <section>
+        <h3>Manage Events</h3>
+        <a href="/events/create">Create Event</a>
+        <a href="/events">View All Events</a>
+      </section>
+      <section>
+        <h3>Manage Articles</h3>
+        <a href="/articles/create">Create Article</a>
+        <a href="/articles">View All Articles</a>
+      </section>
+    <% } else if (user.role === 'organiser') { %>
+      <section>
+        <h3>Manage Events</h3>
+        <a href="/events/create">Create Event</a>
+        <a href="/events">View All Events</a>
+      </section>
+    <% } else if (user.role === 'editor') { %>
+      <section>
+        <h3>Manage Articles</h3>
+        <a href="/articles/create">Create Article</a>
+        <a href="/articles">View All Articles</a>
+      </section>
+    <% } %>
+  </main>
+</body>
+</html>
