@@ -9,109 +9,87 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="/styles.css">
   <style>
-    /* ─── AUTH PAGE LAYOUT ─────────────────── */
     body {
       min-height: 100vh;
-      background: var(--blue);
+      background: linear-gradient(135deg, #0A1628 0%, #1A4FC4 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px 20px;
+      padding: 0;
+      margin: 0;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .signup-hero {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 260px;
+      background: linear-gradient(120deg, #2563EB 60%, #F59E0B 100%);
+      border-bottom-left-radius: 60px;
+      border-bottom-right-radius: 60px;
+      z-index: 0;
+    }
+    .signup-container {
       position: relative;
-      overflow-x: hidden;
-    }
-
-    .auth-bg-grid {
-      position: fixed; inset: 0; z-index: 0;
-      background-image:
-        linear-gradient(rgba(37,99,235,0.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(37,99,235,0.07) 1px, transparent 1px);
-      background-size: 60px 60px;
-      pointer-events: none;
-    }
-    .auth-glow-1 {
-      position: fixed; top: -120px; right: -120px; z-index: 0;
-      width: 520px; height: 520px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(37,99,235,0.25) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .auth-glow-2 {
-      position: fixed; bottom: -150px; left: -80px; z-index: 0;
-      width: 440px; height: 440px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    /* ─── AUTH CARD ────────────────────────── */
-    .auth-card {
-      position: relative; z-index: 1;
-      width: 100%; max-width: 500px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(37,99,235,0.25);
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      margin: 60px auto 0 auto;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(37,99,235,0.18);
       border-radius: 24px;
-      padding: 48px 44px;
-      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 40px rgba(10,22,40,0.18);
+      padding: 48px 36px 36px 36px;
+      backdrop-filter: blur(12px);
     }
-    .auth-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0; height: 3px;
-      background: linear-gradient(90deg, var(--blue-accent), var(--gold));
-      border-radius: 24px 24px 0 0;
-    }
-
-    /* ─── LOGO ─────────────────────────────── */
-    .auth-logo {
+    .signup-logo {
       display: flex; align-items: center; gap: 12px;
-      text-decoration: none; margin-bottom: 36px;
+      text-decoration: none; margin-bottom: 18px;
+      justify-content: center;
     }
-    .auth-logo-badge {
+    .signup-logo-badge {
       width: 44px; height: 44px;
-      background: linear-gradient(135deg, var(--blue-bright), var(--blue-light));
+      background: linear-gradient(135deg, #1A4FC4, #3B82F6);
       border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
       font-family: 'Bebas Neue', sans-serif;
       font-size: 18px; color: white; letter-spacing: 1px;
       box-shadow: 0 0 20px rgba(37,99,235,0.45);
     }
-    .auth-logo-text strong {
+    .signup-logo-text strong {
       display: block;
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 20px; letter-spacing: 2px; color: var(--blue-light);
+      font-size: 20px; letter-spacing: 2px; color: #3B82F6;
     }
-    .auth-logo-text span {
-      font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gray);
+    .signup-logo-text span {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #CBD5E1;
     }
-
-    /* ─── HEADING ──────────────────────────── */
-    .auth-heading {
-      margin-bottom: 32px;
+    .signup-heading {
+      text-align: center;
+      margin-bottom: 28px;
     }
-    .auth-heading .eyebrow {
+    .signup-heading .eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--blue-light); font-weight: 700; margin-bottom: 10px;
+      color: #3B82F6; font-weight: 700; margin-bottom: 10px;
     }
-    .auth-heading .eyebrow i { font-size: 9px; color: var(--gold); }
-    .auth-heading h1 {
+    .signup-heading .eyebrow i { font-size: 9px; color: #F59E0B; }
+    .signup-heading h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 32px; font-weight: 900;
+      font-size: 30px; font-weight: 900;
       color: white; line-height: 1.15;
+      margin: 0;
     }
-    .auth-heading h1 em { font-style: italic; color: var(--blue-light); }
-    .auth-heading p {
+    .signup-heading h1 em { font-style: italic; color: #3B82F6; }
+    .signup-heading p {
       margin-top: 8px; font-size: 14px;
-      color: var(--gray); line-height: 1.6;
+      color: #CBD5E1; line-height: 1.6;
     }
-
-    /* ─── NAME ROW ─────────────────────────── */
     .form-row-2 {
       display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
     }
-
-    /* ─── FIELD ────────────────────────────── */
     .field { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
     .field label {
-      font-size: 11px; font-weight: 600; color: var(--gray-light);
+      font-size: 11px; font-weight: 600; color: #CBD5E1;
       letter-spacing: 1px; text-transform: uppercase;
     }
     .field-wrap {
@@ -119,14 +97,14 @@
     }
     .field-wrap i.field-icon {
       position: absolute; left: 16px;
-      color: var(--gray); font-size: 14px;
+      color: #94A3B8; font-size: 14px;
       pointer-events: none;
       transition: color .2s;
     }
     .field-wrap input {
       width: 100%;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.09);
+      border: 1px solid rgba(255,255,255,0.18);
       border-radius: 10px;
       padding: 13px 16px 13px 44px;
       color: white;
@@ -137,42 +115,44 @@
     }
     .field-wrap input::placeholder { color: rgba(255,255,255,0.28); }
     .field-wrap input:focus {
-      border-color: var(--blue-light);
-      background: rgba(255,255,255,0.1);
+      border-color: #3B82F6;
+      background: rgba(255,255,255,0.13);
     }
-    .field-wrap input:focus + i.field-icon,
-    .field-wrap:focus-within i.field-icon { color: var(--blue-light); }
-
-    /* fix icon z-order — put icon after input in DOM */
-    .field-wrap i.field-icon { z-index: 1; }
-
-    /* password toggle */
+    .field-wrap:focus-within i.field-icon { color: #3B82F6; }
     .pwd-toggle {
       position: absolute; right: 14px;
       background: none; border: none;
-      color: var(--gray); font-size: 14px; cursor: pointer;
-      padding: 4px; transition: color .2s;
-      line-height: 1;
+      color: #94A3B8; font-size: 14px; cursor: pointer;
+      padding: 4px; transition: color .2s; line-height: 1;
     }
-    .pwd-toggle:hover { color: var(--blue-light); }
-
-    /* ─── SUBMIT ────────────────────────────── */
+    .pwd-toggle:hover { color: #3B82F6; }
     .btn-auth {
       width: 100%;
-      background: var(--blue-accent); color: white;
+      background: #2563EB; color: white;
       border: none; border-radius: 10px; padding: 15px;
       font-family: 'DM Sans', sans-serif;
       font-size: 15px; font-weight: 700; letter-spacing: .5px;
-      cursor: pointer; transition: all .3s; margin-top: 8px;
+      cursor: pointer; transition: all .3s, box-shadow .3s, transform .2s;
       display: flex; align-items: center; justify-content: center; gap: 10px;
+      margin-top: 8px;
     }
     .btn-auth:hover {
-      background: var(--blue-light);
+      background: #3B82F6;
       transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(37,99,235,0.45);
+      box-shadow: 0 10px 30px rgba(37,99,235,0.25);
     }
-
-    /* ─── DIVIDER ───────────────────────────── */
+    .btn-auth:focus {
+      outline: 2px solid #F59E0B;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 3px rgba(245,158,11,0.18);
+    }
+    .btn-auth:active {
+      transform: scale(0.97);
+    }
+    .btn-auth.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
     .auth-divider {
       display: flex; align-items: center; gap: 14px;
       margin: 24px 0;
@@ -182,21 +162,17 @@
       content: ''; flex: 1; height: 1px;
       background: rgba(255,255,255,0.08);
     }
-    .auth-divider span { font-size: 11px; color: var(--gray); letter-spacing: 1px; text-transform: uppercase; }
-
-    /* ─── FOOTER LINK ───────────────────────── */
+    .auth-divider span { font-size: 11px; color: #CBD5E1; letter-spacing: 1px; text-transform: uppercase; }
     .auth-footer {
       text-align: center;
       margin-top: 28px;
-      font-size: 14px; color: var(--gray);
+      font-size: 14px; color: #CBD5E1;
     }
     .auth-footer a {
-      color: var(--blue-light); font-weight: 600;
+      color: #3B82F6; font-weight: 600;
       text-decoration: none; transition: color .2s;
     }
-    .auth-footer a:hover { color: var(--gold); }
-
-    /* ─── ERROR MESSAGE ─────────────────────── */
+    .auth-footer a:hover { color: #F59E0B; }
     .auth-error {
       background: rgba(239,68,68,0.15);
       border: 1px solid rgba(239,68,68,0.35);
@@ -206,41 +182,31 @@
       font-size: 13px; color: #FCA5A5;
     }
     .auth-error i { font-size: 14px; color: #F87171; flex-shrink: 0; }
-
-    /* ─── TERMS NOTE ────────────────────────── */
     .terms-note {
       margin-top: 16px;
-      font-size: 12px; color: var(--gray);
+      font-size: 12px; color: #CBD5E1;
       text-align: center; line-height: 1.6;
     }
-    .terms-note a { color: var(--blue-light); text-decoration: none; }
+    .terms-note a { color: #3B82F6; text-decoration: none; }
     .terms-note a:hover { text-decoration: underline; }
-
     @media (max-width: 520px) {
-      .auth-card { padding: 36px 24px; }
+      .signup-container { padding: 28px 8px; }
       .form-row-2 { grid-template-columns: 1fr; }
+      .signup-hero { height: 180px; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
     }
   </style>
 </head>
 <body>
-
-  <div class="auth-bg-grid"></div>
-  <div class="auth-glow-1"></div>
-  <div class="auth-glow-2"></div>
-
-  <div class="auth-card">
-
-    <!-- Logo -->
-    <a href="/" class="auth-logo">
-      <div class="auth-logo-badge">TESA</div>
-      <div class="auth-logo-text">
+  <div class="signup-hero"></div>
+  <div class="signup-container">
+    <a href="/" class="signup-logo">
+      <div class="signup-logo-badge">TESA</div>
+      <div class="signup-logo-text">
         <strong>TESA OAU</strong>
         <span>Obafemi Awolowo University</span>
       </div>
     </a>
-
-    <!-- Heading -->
-    <div class="auth-heading">
+    <div class="signup-heading">
       <div class="eyebrow">
         <i class="fa-solid fa-circle fa-xs"></i>
         Join the community
@@ -248,89 +214,77 @@
       <h1>Create your <em>Account</em></h1>
       <p>Become part of OAU's premier engineering community.</p>
     </div>
-
-    <!-- Error message (shown when passed from server) -->
     <% if (typeof error !== 'undefined' && error) { %>
       <div class="auth-error">
         <i class="fa-solid fa-circle-exclamation"></i>
         <%= error %>
       </div>
     <% } %>
-
-    <!-- Signup Form -->
-    <form action="/signup" method="POST">
-
-      <!-- Name row -->
+    <form action="/signup" method="POST" aria-label="Signup form" role="form" autocomplete="on">
       <div class="form-row-2">
         <div class="field">
           <label for="firstName">First Name</label>
           <div class="field-wrap">
-            <i class="fa-solid fa-user field-icon"></i>
-            <input type="text" id="firstName" name="firstName" placeholder="e.g. Adaeze" required>
+            <i class="fa-solid fa-user field-icon" aria-hidden="true"></i>
+            <input type="text" id="firstName" name="firstName" placeholder="e.g. Adaeze" required aria-required="true" aria-label="First Name">
           </div>
         </div>
         <div class="field">
           <label for="lastName">Last Name</label>
           <div class="field-wrap">
-            <i class="fa-solid fa-user field-icon"></i>
-            <input type="text" id="lastName" name="lastName" placeholder="e.g. Okonkwo" required>
+            <i class="fa-solid fa-user field-icon" aria-hidden="true"></i>
+            <input type="text" id="lastName" name="lastName" placeholder="e.g. Okonkwo" required aria-required="true" aria-label="Last Name">
           </div>
         </div>
       </div>
-
-      <!-- Username -->
       <div class="field">
         <label for="username">Username</label>
         <div class="field-wrap">
-          <i class="fa-solid fa-at field-icon"></i>
-          <input type="text" id="username" name="username" placeholder="Choose a username" required
-            autocomplete="username">
+          <i class="fa-solid fa-at field-icon" aria-hidden="true"></i>
+          <input type="text" id="username" name="username" placeholder="Choose a username" required autocomplete="username" aria-required="true" aria-label="Username">
         </div>
       </div>
-
-      <!-- Email -->
       <div class="field">
         <label for="email">OAU Email Address</label>
         <div class="field-wrap">
-          <i class="fa-solid fa-envelope field-icon"></i>
-          <input type="email" id="email" name="email" placeholder="yourname@oauife.edu.ng" required
-            autocomplete="email">
+          <i class="fa-solid fa-envelope field-icon" aria-hidden="true"></i>
+          <input type="email" id="email" name="email" placeholder="yourname@oauife.edu.ng" required autocomplete="email" aria-required="true" aria-label="Email address">
         </div>
       </div>
-
-      <!-- Password -->
       <div class="field">
         <label for="password">Password</label>
         <div class="field-wrap">
-          <i class="fa-solid fa-lock field-icon"></i>
-          <input type="password" id="password" name="password" placeholder="Min. 8 characters" required
-            autocomplete="new-password">
-          <button type="button" class="pwd-toggle" onclick="togglePwd('password', this)" aria-label="Toggle password">
-            <i class="fa-regular fa-eye"></i>
+          <i class="fa-solid fa-lock field-icon" aria-hidden="true"></i>
+          <input type="password" id="password" name="password" placeholder="Min. 8 characters" required autocomplete="new-password" aria-describedby="pwdHelp" aria-required="true" aria-label="Password" oninput="checkStrength(this.value)">
+          <button type="button" class="pwd-toggle" onclick="togglePwd('password', this)" aria-label="Toggle password visibility">
+            <i class="fa-regular fa-eye" aria-hidden="true"></i>
           </button>
         </div>
+        <div id="pwdStrength" style="margin-top:6px; font-size:12px; color:#CBD5E1;"></div>
       </div>
-
-      <button type="submit" class="btn-auth">
-        <i class="fa-solid fa-rocket"></i>
-        Create Account
+      <button type="submit" class="btn-auth" id="signupBtn">
+        <span id="signupBtnText"><i class="fa-solid fa-rocket"></i> Create Account</span>
+        <span id="signupBtnSpinner" style="display:none;"><i class="fa-solid fa-spinner fa-spin"></i> Creating...</span>
       </button>
-
       <p class="terms-note">
         By signing up, you agree to TESA OAU's
         <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.
       </p>
     </form>
-
     <div class="auth-divider"><span>or</span></div>
-
+    <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px;">
+      <button type="button" class="btn-auth" style="background: #fff; color: #0A1628; border: 1px solid #CBD5E1;" aria-label="Continue with Google">
+        <i class="fab fa-google"></i> Continue with Google
+      </button>
+      <button type="button" class="btn-auth" style="background: #1877f2; color: #fff;" aria-label="Continue with Facebook">
+        <i class="fab fa-facebook-f"></i> Continue with Facebook
+      </button>
+    </div>
     <div class="auth-footer">
       Already have an account?
       <a href="/login"><i class="fa-solid fa-arrow-right-to-bracket"></i> Log in</a>
     </div>
-
   </div>
-
   <script>
     function togglePwd(inputId, btn) {
       const input = document.getElementById(inputId);
@@ -343,7 +297,30 @@
         icon.classList.replace('fa-eye-slash', 'fa-eye');
       }
     }
+    // Password strength meter
+    function checkStrength(pwd) {
+      const meter = document.getElementById('pwdStrength');
+      let score = 0;
+      if (pwd.length >= 8) score++;
+      if (/[A-Z]/.test(pwd)) score++;
+      if (/[0-9]/.test(pwd)) score++;
+      if (/[^A-Za-z0-9]/.test(pwd)) score++;
+      let msg = '';
+      switch(score) {
+        case 0: case 1: msg = 'Weak'; meter.style.color = '#FCA5A5'; break;
+        case 2: msg = 'Fair'; meter.style.color = '#FCD34D'; break;
+        case 3: msg = 'Good'; meter.style.color = '#86efac'; break;
+        case 4: msg = 'Strong'; meter.style.color = '#3B82F6'; break;
+      }
+      meter.textContent = pwd ? `Strength: ${msg}` : '';
+    }
+    // Loading spinner on submit
+    document.querySelector('form').addEventListener('submit', function(e) {
+      const btn = document.getElementById('signupBtn');
+      document.getElementById('signupBtnText').style.display = 'none';
+      document.getElementById('signupBtnSpinner').style.display = 'inline-flex';
+      btn.classList.add('loading');
+    });
   </script>
-
 </body>
 </html>

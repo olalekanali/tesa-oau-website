@@ -45,26 +45,48 @@ export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
+    const wantsJson = req.get('Accept')?.includes('application/json');
+
     if (!user) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      if (wantsJson) {
+        return res.status(400).json({ message: 'Invalid credentials' });
+      }
+      return res.render('login', { title: 'Login — TESA OAU', error: 'Invalid credentials' });
     }
+
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      if (wantsJson) {
+        return res.status(400).json({ message: 'Invalid credentials' });
+      }
+      return res.render('login', { title: 'Login — TESA OAU', error: 'Invalid credentials' });
     }
+
     const token = generateToken(user);
-    res.json({
-      user: {
-        _id: user._id,
-        email: user.email,
-        username: user.username,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        role: user.role,
-      },
-      token,
-    });
+    const sessionUser = {
+      _id: user._id,
+      email: user.email,
+      username: user.username,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      role: user.role,
+    };
+
+    if (!req.session) {
+      throw new Error('Session is not initialized. Did you forget to use express-session middleware?');
+    }
+
+    req.session.user = sessionUser;
+
+    if (wantsJson) {
+      return res.json({ user: sessionUser, token });
+    }
+
+    return res.redirect('/dashboard');
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    if (req.get('Accept')?.includes('application/json')) {
+      return res.status(500).json({ message: error.message });
+    }
+    return res.status(500).render('login', { title: 'Login — TESA OAU', error: 'Unable to login. Please try again.' });
   }
 };

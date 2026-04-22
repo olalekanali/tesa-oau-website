@@ -570,13 +570,41 @@
       border: none; border-radius: 10px; padding: 15px;
       font-family: 'DM Sans', sans-serif;
       font-size: 15px; font-weight: 700; letter-spacing: .5px;
-      cursor: pointer; transition: all .3s; margin-top: 4px;
+      cursor: pointer; transition: all .3s, box-shadow .3s, transform .2s;
+      margin-top: 4px;
       display: flex; align-items: center; justify-content: center; gap: 10px;
     }
     .btn-auth:hover {
       background: var(--blue-light);
       transform: translateY(-2px);
       box-shadow: 0 10px 30px rgba(37,99,235,0.45);
+    }
+    .btn-auth:focus {
+      outline: 2px solid var(--gold);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 3px rgba(245,158,11,0.18);
+    }
+    .btn-auth:active {
+      transform: scale(0.97);
+    }
+    .btn-auth.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    .btn-auth i {
+      transition: transform 0.3s;
+    }
+    .btn-auth.loading i {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     /* ─── DIVIDER ───────────────────────────── */
@@ -673,15 +701,15 @@
     <% } %>
 
     <!-- Login Form -->
-    <form action="/login" method="POST">
+    <form action="/login" method="POST" aria-label="Login form" role="form" autocomplete="on">
 
       <!-- Email -->
       <div class="field">
         <label for="email">Email Address</label>
         <div class="field-wrap">
-          <i class="fa-solid fa-envelope field-icon"></i>
+          <i class="fa-solid fa-envelope field-icon" aria-hidden="true"></i>
           <input type="email" id="email" name="email" placeholder="yourname@oauife.edu.ng"
-            required autocomplete="email">
+            required autocomplete="email" aria-required="true" aria-label="Email address">
         </div>
       </div>
 
@@ -689,30 +717,39 @@
       <div class="field">
         <label for="password">Password</label>
         <div class="field-wrap">
-          <i class="fa-solid fa-lock field-icon"></i>
+          <i class="fa-solid fa-lock field-icon" aria-hidden="true"></i>
           <input type="password" id="password" name="password" placeholder="Your password"
-            required autocomplete="current-password">
-          <button type="button" class="pwd-toggle" onclick="togglePwd('password', this)" aria-label="Toggle password">
-            <i class="fa-regular fa-eye"></i>
+            required autocomplete="current-password" aria-required="true" aria-label="Password">
+          <button type="button" class="pwd-toggle" onclick="togglePwd('password', this)" aria-label="Toggle password visibility">
+            <i class="fa-regular fa-eye" aria-hidden="true"></i>
           </button>
         </div>
       </div>
 
       <!-- Forgot password -->
       <div class="field-extras">
-        <a href="/forgot-password" class="forgot-link">
-          <i class="fa-regular fa-circle-question"></i> Forgot password?
+        <a href="/forgot-password" class="forgot-link" aria-label="Forgot password?">
+          <i class="fa-regular fa-circle-question" aria-hidden="true"></i> Forgot password?
         </a>
       </div>
 
-      <button type="submit" class="btn-auth">
-        <i class="fa-solid fa-arrow-right-to-bracket"></i>
-        Log In
+      <button type="submit" class="btn-auth" id="loginBtn">
+        <span id="loginBtnText"><i class="fa-solid fa-arrow-right-to-bracket"></i> Log In</span>
+        <span id="loginBtnSpinner" style="display:none;"><i class="fa-solid fa-spinner fa-spin"></i> Logging in...</span>
       </button>
 
     </form>
 
     <div class="auth-divider"><span>or</span></div>
+
+    <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px;">
+      <button type="button" class="btn-auth" style="background: #fff; color: #0A1628; border: 1px solid #CBD5E1;" aria-label="Continue with Google">
+        <i class="fab fa-google"></i> Continue with Google
+      </button>
+      <button type="button" class="btn-auth" style="background: #1877f2; color: #fff;" aria-label="Continue with Facebook">
+        <i class="fab fa-facebook-f"></i> Continue with Facebook
+      </button>
+    </div>
 
     <div class="auth-footer">
       Don't have an account?
@@ -733,6 +770,13 @@
         icon.classList.replace('fa-eye-slash', 'fa-eye');
       }
     }
+    // Loading spinner on submit
+    document.querySelector('form').addEventListener('submit', function(e) {
+      const btn = document.getElementById('loginBtn');
+      document.getElementById('loginBtnText').style.display = 'none';
+      document.getElementById('loginBtnSpinner').style.display = 'inline-flex';
+      btn.classList.add('loading');
+    });
   </script>
 
 </body>
